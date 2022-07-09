@@ -7,7 +7,18 @@ export const typeDefs = gql`
         product(id: ID!): Product
         categories: [Category!]!
         category(id: ID!): Category
+        reviews: [Review!]!
     }
+
+    type Mutation {
+        addCategory(input: AddCategoryInput): Category!
+        addProduct(input: AddProductInput): Product!
+        addReview(input: AddReviewInput): Review!
+        deleteCategory(id: ID!): Boolean!
+        deleteProduct(id: ID!): Boolean!
+        deleteReview(id: ID!): Boolean!
+    }
+
     type Product {
         id: ID!
         name: String!
@@ -16,7 +27,7 @@ export const typeDefs = gql`
         price: Float!
         quantity: Int!
         onSale: Boolean!
-        category: Category!
+        category: Category
         reviews: [Review!]!
     }
     type Category {
@@ -36,5 +47,26 @@ export const typeDefs = gql`
     input ProductFilterInput {
         onSale: Boolean
         avgRating: Int
+    }
+
+    input AddCategoryInput {
+        name: String!
+    }
+    input AddProductInput {
+        name: String!
+        description: String!
+        image: String!
+        price: Float!
+        quantity: Int!
+        onSale: Boolean!
+        categoryId: String!
+    }
+
+    input AddReviewInput {
+        date: String!
+        title: String!
+        comment: String!
+        rating: Int!
+        productId: String!
     }
 `;
